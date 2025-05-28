@@ -1,0 +1,7 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Flag pole -->
+  <rect x="36" y="24" width="6" height="84" rx="2" fill="#666666"/>
+  
+  <!-- Green flag -->
+  <path d="M42 28C42 28 58 20 74 28C90 36 106 28 106 28V68C106 68 90 76 74 68C58 60 42 68 42 68V28Z" fill="#22CC66" stroke="#22AA55" stroke-width="2"/>
+</svg> 

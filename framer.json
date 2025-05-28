@@ -1,12 +1,16 @@
 {
   "id": "f22bc2",
-  "name": "Framer Seo Analyzer",
+  "author": "Suhas R Mohan",
+  "authorEmail": "dsuhas@gmail.com",
+  "authorLink": "https://www.linkedin.com/in/suhas-more/",
+  "authorTwitter": "https://x.com/suhas0101",
+  "name": "Framer SEO Analyzer",
   "modes": [
     "canvas",
     "configureManagedCollection",
     "syncManagedCollection"
   ],
-  "icon": "/icon.svg",
+  "icon": "/src/assets/green-flag-icon.svg",
   "useHttps": false,
   "port": 3000
 }
