@@ -28,6 +28,28 @@ const PRIORITY_EMOJI: Record<SEOIssuePriority, string> = {
     "nice-to-have": "🔵"
 };
 
+// Analysis type color and info configuration
+const ANALYSIS_CONFIG = {
+    'seo': {
+        primaryColor: '#0055FF',
+        secondaryColor: '#E6F0FF',
+        icon: '🔍',
+        footerText: 'Based on Google Search Console best practices & SEO guidelines'
+    },
+    'accessibility': {
+        primaryColor: '#9333EA',
+        secondaryColor: '#F3E8FF',
+        icon: '♿',
+        footerText: 'Following WCAG 2.1 accessibility standards'
+    },
+    'links': {
+        primaryColor: '#16A34A',
+        secondaryColor: '#DCFCE7',
+        icon: '🔗',
+        footerText: 'Checks for broken links, redirects, and link integrity'
+    }
+};
+
 // Project info interface
 interface ProjectInfo {
     name: string;
@@ -159,11 +181,12 @@ const highlightElementInFramer = (issue: SEOIssue) => {
 };
 
 // Issue card component
-const IssueCard = ({ issue }: { issue: SEOIssue }) => {
+const IssueCard = ({ issue, analyzeMode }: { issue: SEOIssue, analyzeMode: 'seo' | 'accessibility' | 'links' }) => {
     const [expanded, setExpanded] = useState(false);
+    const config = ANALYSIS_CONFIG[analyzeMode];
     
     return (
-        <div className={`issue-card ${issue.type} ${expanded ? 'expanded' : ''}`}>
+        <div className={`issue-card ${issue.type} ${expanded ? 'expanded' : ''}`} style={{'--primary-color': config.primaryColor} as React.CSSProperties}>
             <div className="issue-header" onClick={() => setExpanded(!expanded)}>
                 <div className="issue-icon">
                     {issue.type === "error" ? "❌" : 
@@ -242,12 +265,14 @@ const ProjectInfoForm = ({
     projectInfo, 
     setProjectInfo, 
     onSubmit, 
-    onCancel 
+    onCancel,
+    analyzeMode
 }: { 
     projectInfo: ProjectInfo; 
     setProjectInfo: (info: ProjectInfo) => void;
     onSubmit: () => void;
     onCancel: () => void;
+    analyzeMode: 'seo' | 'accessibility' | 'links';
 }) => {
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -257,8 +282,10 @@ const ProjectInfoForm = ({
         });
     };
     
+    const config = ANALYSIS_CONFIG[analyzeMode];
+    
     return (
-        <div className="project-info-form">
+        <div className="project-info-form" style={{'--primary-color': config.primaryColor} as React.CSSProperties}>
             <h2>Project Information</h2>
             <p className="form-description">
                 This information will be included in your downloaded report to provide context.
@@ -342,14 +369,12 @@ const AnalysisResults = ({
     selectedCategory, 
     setSelectedCategory, 
     analyzeMode,
-    onRerunAnalysis,
     onDownloadReport
 }: { 
     analysisResult: SEOAnalysisResult; 
     selectedCategory: SEOCategory | 'all';
     setSelectedCategory: (category: SEOCategory | 'all') => void;
     analyzeMode: 'seo' | 'accessibility' | 'links';
-    onRerunAnalysis: () => void;
     onDownloadReport: () => void;
 }) => {
     // Get issues for the selected category
@@ -401,35 +426,50 @@ const AnalysisResults = ({
     const getAnalysisTitle = () => {
         switch (analyzeMode) {
             case 'accessibility':
-                return "Accessibility Analysis";
+                return `${ANALYSIS_CONFIG.accessibility.icon} Accessibility Analysis`;
             case 'links':
-                return "Broken Links Check";
+                return `${ANALYSIS_CONFIG.links.icon} Broken Links Check`;
             default:
-                return "SEO Analysis";
+                return `${ANALYSIS_CONFIG.seo.icon} SEO Analysis`;
         }
     };
+    
+    const config = ANALYSIS_CONFIG[analyzeMode];
 
     return (
-        <div className="results">
+        <div className="results" style={{'--primary-color': config.primaryColor, '--secondary-color': config.secondaryColor} as React.CSSProperties}>
+            <div className="info-banner">
+                <p>{config.footerText}</p>
+            </div>
+            
             <h2 className="analysis-type-title">{getAnalysisTitle()}</h2>
             
-            <div className="score-container">
+            <div className="score-overview">
                 <div className={`score ${getScoreClass(getScoreForDisplay())}`}>
                     {getScoreForDisplay()}
                 </div>
-                <div className="score-label">
-                    {selectedCategory === 'all' ? 'Overall Score' : `${formatCategoryName(selectedCategory)} Score`}
+                <div className="score-stats">
+                    <div className="score-label">
+                        {selectedCategory === 'all' ? 'Overall Score' : `${formatCategoryName(selectedCategory)} Score`}
+                    </div>
+                    <div className="score-issues-count">
+                        <span className="count-item">
+                            <span className="count-icon">{PRIORITY_EMOJI.critical}</span>
+                            {getIssuesByPriority("critical").length}
+                        </span>
+                        <span className="count-item">
+                            <span className="count-icon">{PRIORITY_EMOJI.important}</span>
+                            {getIssuesByPriority("important").length}
+                        </span>
+                        <span className="count-item">
+                            <span className="count-icon">{PRIORITY_EMOJI["nice-to-have"]}</span>
+                            {getIssuesByPriority("nice-to-have").length}
+                        </span>
+                    </div>
                 </div>
             </div>
             
             <div className="category-tabs">
-                <button 
-                    className={selectedCategory === 'all' ? 'active' : ''} 
-                    onClick={() => setSelectedCategory('all')}
-                >
-                    All
-                </button>
-                
                 {getCategoriesWithIssues().map(category => (
                     <button 
                         key={category} 
@@ -450,7 +490,7 @@ const AnalysisResults = ({
                 >
                     {getIssuesByPriority("critical").length > 0 ? (
                         getIssuesByPriority("critical").map((issue, index) => (
-                            <IssueCard key={index} issue={issue} />
+                            <IssueCard key={index} issue={issue} analyzeMode={analyzeMode} />
                         ))
                     ) : (
                         <div className="empty-section-message">
@@ -467,7 +507,7 @@ const AnalysisResults = ({
                 >
                     {getIssuesByPriority("important").length > 0 ? (
                         getIssuesByPriority("important").map((issue, index) => (
-                            <IssueCard key={index} issue={issue} />
+                            <IssueCard key={index} issue={issue} analyzeMode={analyzeMode} />
                         ))
                     ) : (
                         <div className="empty-section-message">
@@ -484,7 +524,7 @@ const AnalysisResults = ({
                 >
                     {getIssuesByPriority("nice-to-have").length > 0 ? (
                         getIssuesByPriority("nice-to-have").map((issue, index) => (
-                            <IssueCard key={index} issue={issue} />
+                            <IssueCard key={index} issue={issue} analyzeMode={analyzeMode} />
                         ))
                     ) : (
                         <div className="empty-section-message">
@@ -495,13 +535,6 @@ const AnalysisResults = ({
             </div>
 
             <div className="footer-actions">
-                <button 
-                    className="rerun-button"
-                    onClick={onRerunAnalysis}
-                >
-                    Re-run Analysis
-                </button>
-                
                 <button 
                     className="download-button"
                     onClick={onDownloadReport}
@@ -658,10 +691,12 @@ export function App() {
         // Hide the project info form
         setShowProjectInfoForm(false);
     };
+    
+    const config = ANALYSIS_CONFIG[analyzeMode];
 
     return (
-        <main className="seo-analyzer">
-            <h1>Framer SEO Analyzer</h1>
+        <main className="seo-analyzer" style={{'--primary-color': config.primaryColor, '--secondary-color': config.secondaryColor} as React.CSSProperties}>
+            <h1>Framer Analyzer</h1>
             
             {showProjectInfoForm ? (
                 <ProjectInfoForm 
@@ -669,6 +704,7 @@ export function App() {
                     setProjectInfo={setProjectInfo}
                     onSubmit={handleDownloadReport}
                     onCancel={handleCancelProjectInfo}
+                    analyzeMode={analyzeMode}
                 />
             ) : (
                 <>
@@ -677,22 +713,25 @@ export function App() {
                             className={`analysis-button ${analyzeMode === 'seo' ? 'active' : ''}`}
                             onClick={() => setAnalyzeMode('seo')}
                             disabled={isAnalyzing}
+                            style={analyzeMode === 'seo' ? {backgroundColor: ANALYSIS_CONFIG.seo.primaryColor} : {}}
                         >
-                            SEO
+                            {ANALYSIS_CONFIG.seo.icon} SEO
                         </button>
                         <button 
                             className={`analysis-button ${analyzeMode === 'accessibility' ? 'active' : ''}`}
                             onClick={() => setAnalyzeMode('accessibility')}
                             disabled={isAnalyzing}
+                            style={analyzeMode === 'accessibility' ? {backgroundColor: ANALYSIS_CONFIG.accessibility.primaryColor} : {}}
                         >
-                            Accessibility
+                            {ANALYSIS_CONFIG.accessibility.icon} Accessibility
                         </button>
                         <button 
                             className={`analysis-button ${analyzeMode === 'links' ? 'active' : ''}`}
                             onClick={() => setAnalyzeMode('links')}
                             disabled={isAnalyzing}
+                            style={analyzeMode === 'links' ? {backgroundColor: ANALYSIS_CONFIG.links.primaryColor} : {}}
                         >
-                            Broken Links
+                            {ANALYSIS_CONFIG.links.icon} Links
                         </button>
                     </div>
                     
@@ -701,6 +740,7 @@ export function App() {
                             className="framer-button-primary" 
                             onClick={runAnalysis}
                             disabled={isAnalyzing}
+                            style={{backgroundColor: config.primaryColor}}
                         >
                             {isAnalyzing ? "Analyzing..." : `Analyze ${analyzeMode.charAt(0).toUpperCase() + analyzeMode.slice(1)}`}
                         </button>
@@ -712,13 +752,14 @@ export function App() {
                             selectedCategory={getCurrentCategory()}
                             setSelectedCategory={setCurrentCategory}
                             analyzeMode={analyzeMode}
-                            onRerunAnalysis={runAnalysis}
                             onDownloadReport={handleInitiateDownload}
                         />
                     )}
                     
                     <div className="footer">
-                        <p>Based on comprehensive SEO best practices</p>
+                        <div className="made-with-love">
+                            Made with <span className="heart">❤️</span> by <a href="https://github.com/suhas010" target="_blank" rel="noopener noreferrer">Suhas R More</a>
+                        </div>
                     </div>
                 </>
             )}
