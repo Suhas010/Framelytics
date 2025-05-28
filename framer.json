@@ -2,7 +2,11 @@
   "id": "f22bc2",
   "name": "Framer Seo Analyzer",
   "modes": [
-    "canvas"
+    "canvas",
+    "configureManagedCollection",
+    "syncManagedCollection"
   ],
-  "icon": "/icon.svg"
+  "icon": "/icon.svg",
+  "useHttps": false,
+  "port": 3000
 }
