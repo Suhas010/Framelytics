@@ -4,7 +4,6 @@ import { useAnalysisContext, ANALYSIS_CONFIG } from '../../context/AnalysisConte
 import { AnalysisTabs } from './AnalysisTabs';
 import { AnalyzeButton } from './AnalyzeButton';
 import { AnalysisResults } from '../analysis/AnalysisResults';
-import { ProjectInfoForm } from '../forms/ProjectInfoForm';
 import { Footer } from '../layout/Footer';
 
 // Configure Framer UI
@@ -19,7 +18,6 @@ framer.showUI({
  */
 export const App: React.FC = () => {
     const { 
-        showProjectInfoForm, 
         getCurrentResults,
         analysisMode
     } = useAnalysisContext();
@@ -28,23 +26,17 @@ export const App: React.FC = () => {
         <main className="seo-analyzer" style={{'--primary-color': ANALYSIS_CONFIG[analysisMode].primaryColor, '--secondary-color': ANALYSIS_CONFIG[analysisMode].secondaryColor} as React.CSSProperties}>
             <h1>Framer Analyzer</h1>
             
-            {showProjectInfoForm ? (
-                <ProjectInfoForm />
-            ) : (
-                <>
-                    <AnalysisTabs />
-                    
-                    {!getCurrentResults() && (
-                        <AnalyzeButton />
-                    )}
-                    
-                    {getCurrentResults() && (
-                        <AnalysisResults />
-                    )}
-                    
-                    <Footer />
-                </>
+            <AnalysisTabs />
+            
+            {!getCurrentResults() && (
+                <AnalyzeButton />
             )}
+            
+            {getCurrentResults() && (
+                <AnalysisResults />
+            )}
+            
+            <Footer />
         </main>
     );
 }; 

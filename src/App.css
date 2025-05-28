@@ -514,7 +514,7 @@ button {
   font-size: 13px;
   border-radius: 6px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s;
   background-color: var(--primary-color);
   color: white;
   text-align: center;
@@ -522,7 +522,6 @@ button {
 }
 
 .download-button:hover {
-  filter: brightness(1.1);
   transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

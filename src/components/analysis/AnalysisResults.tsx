@@ -154,8 +154,8 @@ export const AnalysisResults: React.FC = () => {
             <div className="footer-actions">
                 <button 
                     className="download-button"
-                    onClick={initiateDownload}
-                    title="Download comprehensive HTML report"
+                    onClick={() => initiateDownload()}
+                    title="Download comprehensive HTML report with all analysis results"
                 >
                     Download Report
                 </button>
