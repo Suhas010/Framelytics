@@ -1,10 +1,11 @@
 {
   "id": "f22bc2",
+  "name": "Framer SEO, accessibility and links analyzer",
+  "description": "Analyze your Framer project for SEO, accessibility, and links issues and get a detailed report to improve your site's performance.",
   "author": "Suhas R Mohan",
   "authorEmail": "dsuhas@gmail.com",
   "authorLink": "https://www.linkedin.com/in/suhas-more/",
   "authorTwitter": "https://x.com/suhas0101",
-  "name": "Framer SEO Analyzer",
   "modes": [
     "canvas",
     "configureManagedCollection",
