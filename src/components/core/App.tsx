@@ -5,6 +5,8 @@ import { AnalysisTabs } from './AnalysisTabs';
 import { AnalyzeButton } from './AnalyzeButton';
 import { AnalysisResults } from '../analysis/AnalysisResults';
 import { Footer } from '../layout/Footer';
+import { ReanalyzeButton } from './ReanalyzeButton';
+import { useReportGenerator } from '../../hooks/useReportGenerator';
 
 // Configure Framer UI
 framer.showUI({
@@ -19,8 +21,13 @@ framer.showUI({
 export const App: React.FC = () => {
     const { 
         getCurrentResults,
-        analysisMode
+        analysisMode,
+        isAnalyzing
     } = useAnalysisContext();
+    
+    const { initiateDownload } = useReportGenerator();
+    
+    const hasResults = !!getCurrentResults();
     
     return (
         <main className="seo-analyzer" style={{'--primary-color': ANALYSIS_CONFIG[analysisMode].primaryColor, '--secondary-color': ANALYSIS_CONFIG[analysisMode].secondaryColor} as React.CSSProperties}>
@@ -28,12 +35,26 @@ export const App: React.FC = () => {
             
             <AnalysisTabs />
             
-            {!getCurrentResults() && (
+            {!hasResults && !isAnalyzing && (
                 <AnalyzeButton />
             )}
             
-            {getCurrentResults() && (
+            {hasResults && (
                 <AnalysisResults />
+            )}
+            
+            {/* Action buttons at the bottom of UI */}
+            {hasResults && (
+                <div className="bottom-actions">
+                    <ReanalyzeButton />
+                    
+                    <div 
+                        className="download-button"
+                        onClick={() => initiateDownload()}
+                    >
+                        Download Report
+                    </div>
+                </div>
             )}
             
             <Footer />

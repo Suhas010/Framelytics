@@ -67,6 +67,7 @@ interface AnalysisContextType {
     getCurrentResults: () => SEOAnalysisResult | null;
     getCurrentCategory: () => SEOCategory | 'all';
     setCurrentCategory: (category: SEOCategory | 'all') => void;
+    resetResults: () => void;
 }
 
 // Default project info
@@ -100,6 +101,23 @@ export function AnalysisProvider({ children }: { children: ReactNode }) {
     const [isAnalyzing, setIsAnalyzing] = useState(false);
     const [projectInfo, setProjectInfo] = useState<ProjectInfo>(defaultProjectInfo);
     const [showProjectInfoForm, setShowProjectInfoForm] = useState(false);
+    
+    // Handle analysis mode change
+    const handleAnalysisModeChange = (mode: AnalysisMode) => {
+        setAnalysisMode(mode);
+        // Reset the category to 'all' when changing modes to ensure all results are displayed
+        switch (mode) {
+            case 'accessibility':
+                setAccessibilityCategory('all');
+                break;
+            case 'links':
+                setLinksCategory('all');
+                break;
+            default:
+                setSeoCategory('all');
+                break;
+        }
+    };
     
     // Get current results based on active tab
     const getCurrentResults = () => {
@@ -140,10 +158,25 @@ export function AnalysisProvider({ children }: { children: ReactNode }) {
         }
     };
     
+    // Reset results for current mode
+    const resetResults = () => {
+        switch (analysisMode) {
+            case 'accessibility':
+                setAccessibilityResults(null);
+                break;
+            case 'links':
+                setLinksResults(null);
+                break;
+            default:
+                setSeoResults(null);
+                break;
+        }
+    };
+    
     return (
         <AnalysisContext.Provider value={{
             analysisMode,
-            setAnalysisMode,
+            setAnalysisMode: handleAnalysisModeChange,
             seoResults,
             setSeoResults,
             accessibilityResults,
@@ -164,7 +197,8 @@ export function AnalysisProvider({ children }: { children: ReactNode }) {
             setShowProjectInfoForm,
             getCurrentResults,
             getCurrentCategory,
-            setCurrentCategory
+            setCurrentCategory,
+            resetResults
         }}>
             {children}
         </AnalysisContext.Provider>
