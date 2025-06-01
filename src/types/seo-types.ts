@@ -32,7 +32,9 @@ export type SEOCategory =
     | "mobile"
     | "social"
     | "security"
-    | "favicon";
+    | "favicon"
+    | "schema"
+    | "international";
 
 export interface SEOAnalysisResult {
     issues: SEOIssue[];

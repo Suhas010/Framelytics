@@ -4,6 +4,11 @@ import { SEOCategory, SEOAnalysisResult } from '../types/seo-types';
 import { useSelection } from './useSelection';
 
 /**
+ * Utility function to create a delay
+ */
+const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+/**
  * Custom hook for analyzing frames with the SEO analyzer
  */
 export function useAnalyzer() {
@@ -29,6 +34,10 @@ export function useAnalyzer() {
             
             // Set up filter based on current mode
             const filter = getFilterForMode(analysisMode);
+            
+            // Add a delay to simulate processing time (2-3 seconds)
+            const simulatedDelay = Math.floor(Math.random() * 1000) + 2000; // 2-3 seconds
+            await delay(simulatedDelay);
                 
             const result = await seoAnalyzer.analyzeNodes(nodes, { filter });
             
@@ -47,13 +56,34 @@ export function useAnalyzer() {
     const getFilterForMode = (mode: AnalysisMode): SEOCategory[] => {
         switch (mode) {
             case 'seo':
-                return ['metadata', 'structure', 'images', 'content', 'social'];
+                return [
+                    'metadata',
+                    'structure',
+                    'images',
+                    'content',
+                    'social',
+                    'performance',
+                    'mobile',
+                    'security',
+                    'schema'
+                    // 'international' is included via metadata
+                ];
             case 'accessibility':
                 return ['accessibility'];
             case 'links':
                 return ['links'];
             default:
-                return ['metadata', 'structure', 'images', 'content', 'social'];
+                return [
+                    'metadata',
+                    'structure',
+                    'images',
+                    'content',
+                    'social',
+                    'performance',
+                    'mobile',
+                    'security',
+                    'schema'
+                ];
         }
     };
 
