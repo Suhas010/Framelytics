@@ -31,7 +31,7 @@ export const App: React.FC = () => {
     
     return (
         <main className="seo-analyzer" style={{'--primary-color': ANALYSIS_CONFIG[analysisMode].primaryColor, '--secondary-color': ANALYSIS_CONFIG[analysisMode].secondaryColor} as React.CSSProperties}>
-            <h1>Framer Analyzer</h1>
+            <h1>Framelytics</h1>
             
             <AnalysisTabs />
             
