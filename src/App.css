@@ -93,21 +93,25 @@ button {
   flex: 1;
   padding: 10px 8px;
   font-size: 13px;
-  background-color: #f0f0f0;
-  color: #555;
   border-radius: 6px;
   transition: all 0.2s ease;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.button-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  line-height: 1;
 }
 
 .analysis-button:hover {
-  background-color: #e0e0e0;
   transform: translateY(-1px);
-}
-
-.analysis-button.active {
-  background-color: var(--primary-color);
-  color: white;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
@@ -279,6 +283,7 @@ button {
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  margin-bottom: 16px;
 }
 
 .section-header {
@@ -335,19 +340,6 @@ button {
 
 .issue-card:hover {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-}
-
-.issue-card.error .issue-header {
-  border-left: 3px solid var(--critical-color);
-}
-
-.issue-card.warning .issue-header {
-  border-left: 3px solid var(--important-color);
-}
-
-.issue-card.info .issue-header,
-.issue-card.success .issue-header {
-  border-left: 3px solid var(--nice-to-have-color);
 }
 
 .issue-header {
@@ -509,7 +501,6 @@ button {
 
 .download-button {
   width: 100%;
-  max-width: 200px;
   padding: 10px 14px;
   font-size: 13px;
   border-radius: 6px;
@@ -519,9 +510,13 @@ button {
   color: white;
   text-align: center;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .download-button:hover {
+  filter: brightness(1.05);
   transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -547,6 +542,61 @@ button {
     margin-top: 20px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     border: 1px solid var(--secondary-color);
+}
+
+/* Bottom Actions */
+.bottom-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+  padding: 16px;
+  border-radius: 12px;
+  background-color: #f9f9f9;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+
+/* Reanalyze Button Styles */
+.reanalyze-button {
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 13px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.reanalyze-button:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.reanalyze-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.loading-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 .project-info-form h2 {
