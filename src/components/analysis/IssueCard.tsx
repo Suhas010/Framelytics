@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { SEOIssue } from '../../types/seo-types';
-import { useAnalysisContext, ANALYSIS_CONFIG } from '../../context/AnalysisContext';
+import { useAnalysisContext, ANALYSIS_CONFIG, PRIORITY_EMOJI } from '../../context/AnalysisContext';
 import { VisualIssueDisplay } from './VisualIssueDisplay';
 
 interface IssueCardProps {
@@ -15,13 +15,32 @@ export const IssueCard: React.FC<IssueCardProps> = ({ issue }) => {
     const { analysisMode } = useAnalysisContext();
     const config = ANALYSIS_CONFIG[analysisMode];
     
+    // Get priority color based on issue priority
+    const getPriorityColor = () => {
+        switch(issue.priority) {
+            case 'critical':
+                return 'var(--critical-color)';
+            case 'important':
+                return 'var(--important-color)';
+            case 'nice-to-have':
+                return 'var(--nice-to-have-color)';
+            default:
+                return 'var(--primary-color)';
+        }
+    };
+    
+    // Get priority emoji based on issue priority
+    const getPriorityEmoji = () => {
+        return PRIORITY_EMOJI[issue.priority] || '';
+    };
+    
     return (
-        <div className={`issue-card ${issue.type} ${expanded ? 'expanded' : ''}`} style={{'--primary-color': config.primaryColor} as React.CSSProperties}>
-            <div className="issue-header" onClick={() => setExpanded(!expanded)}>
+        <div className={`issue-card ${issue.type} ${expanded ? 'expanded' : ''}`} 
+             style={{'--primary-color': config.primaryColor} as React.CSSProperties}>
+            <div className="issue-header" onClick={() => setExpanded(!expanded)}
+                 style={{borderLeftColor: getPriorityColor(), borderLeftWidth: '3px'}}>
                 <div className="issue-icon">
-                    {issue.type === "error" ? "❌" : 
-                     issue.type === "warning" ? "⚠️" : 
-                     issue.type === "success" ? "✅" : "ℹ️"}
+                    {getPriorityEmoji()} {/* Use priority emoji instead of issue type emoji */}
                 </div>
                 <div className="issue-title">{issue.message}</div>
                 <div className="issue-expand-icon">{expanded ? '▼' : '▶'}</div>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { framer } from 'framer-plugin';
 import { SEOIssue } from '../../types/seo-types';
 
 interface VisualIssueDisplayProps {
@@ -35,18 +36,19 @@ export const VisualIssueDisplay: React.FC<VisualIssueDisplayProps> = ({ issue })
         if (!issue.elementId) return;
         
         try {
-            // In a real implementation, this would use Framer's API to:
-            // 1. Select the element with the given ID
-            // 2. Scroll to it
-            // 3. Highlight it visually
-            
-            // For now, we'll just log that we want to highlight it
-            console.log(`Highlighting element: ${issue.elementId}`);
-            
-            // Example of what this might look like with a real API:
-            // framer.selectNode(issue.elementId);
-            // framer.scrollToNode(issue.elementId);
-            // framer.highlightNode(issue.elementId);
+            // Use Framer's API to navigate to the element
+            // The zoomIntoView method is documented and should be available
+            if (framer) {
+                // Select and zoom to the element - will set selection and scroll viewport
+                framer.zoomIntoView(issue.elementId);
+                
+                // Provide feedback to the user
+                framer.notify?.("Element highlighted in canvas");
+                
+                console.log(`Highlighting element: ${issue.elementId}`);
+            } else {
+                console.warn("Framer API is not available");
+            }
         } catch (error) {
             console.error("Failed to highlight element:", error);
         }
