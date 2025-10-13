@@ -102,7 +102,7 @@ export class SEOAnalyzerService {
         // Run all analyzers and collect issues
         for (const [category, analyzer] of Object.entries(this.analyzers)) {
             // Skip if filtered out
-            if (options.filter && !options.filter.includes(category)) {
+            if (options.filter && !options.filter.includes(category as SEOCategory)) {
                 continue;
             }
             
@@ -135,8 +135,10 @@ export class SEOAnalyzerService {
     createNodesFromFramerSelection(selection: CanvasNode[]): FramerNode[] {
         // Convert Framer's CanvasNode to our internal FramerNode structure
         if (!selection || selection.length === 0) {
-            // Return sample nodes for demonstration when nothing is selected
-            return this.getSampleNodes();
+            // Return empty array when nothing is selected
+            // NOTE: Sample data commented out for production. Uncomment getSampleNodes() for testing.
+            return [];
+            // return this.getSampleNodes();
         }
         
         // Map Framer selection to our FramerNode type
@@ -323,47 +325,53 @@ export class SEOAnalyzerService {
         }
     }
     
-    // For demonstration purposes, create sample nodes
-    private getSampleNodes(): FramerNode[] {
-        return [
-            {
-                id: "title",
-                name: "title",
-                text: "Welcome to our website",
-                type: "text",
-                style: {
-                    fontSize: 32
-                }
-            },
-            {
-                id: "meta-description",
-                name: "meta-description",
-                metadata: {
-                    name: "description",
-                    content: "This is a sample meta description for demonstration purposes."
-                }
-            },
-            {
-                id: "hero-image",
-                name: "hero-image",
-                type: "image",
-                alt: "Hero image"
-            },
-            {
-                id: "heading1",
-                name: "h1",
-                text: "Main Heading",
-                type: "text",
-                style: {
-                    fontSize: 24
-                }
-            },
-            {
-                id: "paragraph1",
-                name: "paragraph",
-                text: "This is a sample paragraph with some content for the SEO analyzer to evaluate.",
-                type: "text"
-            }
-        ];
-    }
+    // ============================================================================
+    // SAMPLE DATA FOR TESTING - COMMENTED OUT FOR PRODUCTION
+    // ============================================================================
+    // Uncomment this method and the call in createNodesFromFramerSelection() above
+    // to enable sample data for testing purposes
+    // ============================================================================
+    
+    // private getSampleNodes(): FramerNode[] {
+    //     return [
+    //         {
+    //             id: "title",
+    //             name: "title",
+    //             text: "Welcome to our website",
+    //             type: "text",
+    //             style: {
+    //                 fontSize: 32
+    //             }
+    //         },
+    //         {
+    //             id: "meta-description",
+    //             name: "meta-description",
+    //             metadata: {
+    //                 name: "description",
+    //                 content: "This is a sample meta description for demonstration purposes."
+    //             }
+    //         },
+    //         {
+    //             id: "hero-image",
+    //             name: "hero-image",
+    //             type: "image",
+    //             alt: "Hero image"
+    //         },
+    //         {
+    //             id: "heading1",
+    //             name: "h1",
+    //             text: "Main Heading",
+    //             type: "text",
+    //             style: {
+    //                 fontSize: 24
+    //             }
+    //         },
+    //         {
+    //             id: "paragraph1",
+    //             name: "paragraph",
+    //             text: "This is a sample paragraph with some content for the SEO analyzer to evaluate.",
+    //             type: "text"
+    //         }
+    //     ];
+    // }
 } 
