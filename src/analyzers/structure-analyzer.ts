@@ -43,8 +43,8 @@ export class StructureAnalyzer implements Analyzer {
                 category: this.category,
                 recommendation: "Add an H1 heading as the main title of your page - each page should have exactly one H1",
                 priority: "critical",
-                externalResourceLink: "https://developers.google.com/search/docs/appearance/page-titles",
-                externalResourceTitle: "Google: Create good page titles"
+                externalResourceLink: "https://ahrefs.com/blog/h1-tag/",
+                externalResourceTitle: "Ahrefs: H1 Tags - SEO Best Practices"
             });
         } else if (h1Nodes.length > 1) {
             // List all nodes that might be H1s
@@ -65,8 +65,8 @@ export class StructureAnalyzer implements Analyzer {
                 category: this.category,
                 recommendation: "Use only one H1 heading per page for proper SEO structure. The following elements are detected as H1s:\n" + h1NodesList,
                 priority: "critical",
-                externalResourceLink: "https://www.searchenginejournal.com/on-page-seo/heading-tags/",
-                externalResourceTitle: "How to Use Heading Tags for SEO"
+                externalResourceLink: "https://ahrefs.com/blog/h1-tag/",
+                externalResourceTitle: "Ahrefs: H1 Tags - SEO Best Practices"
             });
             
             // Find the most appropriate H1
@@ -228,8 +228,8 @@ export class StructureAnalyzer implements Analyzer {
                 category: this.category,
                 recommendation: "Break up long content with more headings to improve readability and SEO",
                 priority: "important",
-                externalResourceLink: "https://www.searchenginejournal.com/content-marketing/long-form-content/",
-                externalResourceTitle: "How to Create Long-Form Content That Ranks, Reads Well & Converts"
+                externalResourceLink: "https://ahrefs.com/blog/long-form-content/",
+                externalResourceTitle: "Ahrefs: Long-Form Content - A Data-Driven Guide"
             });
         }
         

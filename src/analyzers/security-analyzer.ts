@@ -91,8 +91,8 @@ export class SecurityAnalyzer implements Analyzer {
                 category: this.category,
                 recommendation: "Ensure all form actions use HTTPS to protect user data during transmission",
                 priority: "critical",
-                externalResourceLink: "https://web.dev/security-forms/",
-                externalResourceTitle: "Web.dev: Secure forms"
+                externalResourceLink: "https://web.dev/articles/why-https-matters",
+                externalResourceTitle: "Web.dev: Why HTTPS Matters"
             });
         }
         
@@ -186,8 +186,8 @@ export class SecurityAnalyzer implements Analyzer {
                 category: this.category,
                 recommendation: "Use Subresource Integrity (SRI) for external scripts and stylesheets",
                 priority: "nice-to-have",
-                externalResourceLink: "https://web.dev/csp-sri/",
-                externalResourceTitle: "Web.dev: Subresource Integrity"
+                externalResourceLink: "https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity",
+                externalResourceTitle: "MDN: Subresource Integrity"
             });
         }
         

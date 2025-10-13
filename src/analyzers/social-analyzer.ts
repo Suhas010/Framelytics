@@ -211,8 +211,8 @@ export class SocialAnalyzer implements Analyzer {
                 category: this.category,
                 recommendation: "Consider adding social sharing buttons to increase content distribution",
                 priority: "nice-to-have",
-                externalResourceLink: "https://blog.hubspot.com/marketing/social-media-button-design",
-                externalResourceTitle: "Tips for Designing Social Media Buttons"
+                externalResourceLink: "https://developers.facebook.com/docs/plugins/share-button",
+                externalResourceTitle: "Facebook: Share Button Plugin"
             });
         }
     }
