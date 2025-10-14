@@ -62,6 +62,7 @@ export const AnalysisResults: React.FC = () => {
                 title={`Critical Issues`}
                 issueCount={getIssuesByPriority('critical').length}
                 defaultExpanded={true}
+                priority="critical"
             >
                 {getIssuesByPriority('critical').length > 0 ? (
                     getIssuesByPriority('critical').map((issue, index) => (
@@ -77,6 +78,7 @@ export const AnalysisResults: React.FC = () => {
                 title={`Important Issues`}
                 issueCount={getIssuesByPriority('important').length}
                 defaultExpanded={true}
+                priority="important"
             >
                 {getIssuesByPriority('important').length > 0 ? (
                     getIssuesByPriority('important').map((issue, index) => (
@@ -92,6 +94,7 @@ export const AnalysisResults: React.FC = () => {
                 title={`Recommendations`}
                 issueCount={getIssuesByPriority('nice-to-have').length}
                 defaultExpanded={false}
+                priority="nice-to-have"
             >
                 {getIssuesByPriority('nice-to-have').length > 0 ? (
                     getIssuesByPriority('nice-to-have').map((issue, index) => (
