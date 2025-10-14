@@ -156,8 +156,8 @@ export class LinksAnalyzer implements Analyzer {
                     elementId: linkNode.id,
                     recommendation: "Use descriptive link text that makes sense out of context",
                     priority: "important",
-                    externalResourceLink: "https://web.dev/learn/accessibility/links/",
-                    externalResourceTitle: "Web.dev: Links and accessibility"
+                    externalResourceLink: "https://moz.com/learn/seo/anchor-text",
+                    externalResourceTitle: "Moz: Anchor Text - A Complete Guide"
                 });
             }
             
@@ -171,8 +171,8 @@ export class LinksAnalyzer implements Analyzer {
                     elementId: linkNode.id,
                     recommendation: "Keep link text concise and descriptive",
                     priority: "nice-to-have",
-                    externalResourceLink: "https://web.dev/learn/accessibility/links/",
-                    externalResourceTitle: "Web.dev: Links and accessibility"
+                    externalResourceLink: "https://moz.com/learn/seo/anchor-text",
+                    externalResourceTitle: "Moz: Anchor Text - A Complete Guide"
                 });
             }
         });
@@ -327,7 +327,7 @@ export class LinksAnalyzer implements Analyzer {
                 category: this.category,
                 recommendation: "Use unique, descriptive link text for different destinations",
                 priority: "nice-to-have",
-                externalResourceLink: "https://web.dev/learn/accessibility/links/#unique-link-text",
+                externalResourceLink: "https://moz.com/learn/seo/anchor-text#unique-link-text",
                 externalResourceTitle: "Web.dev: Unique link text"
             });
         }

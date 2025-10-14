@@ -82,8 +82,8 @@ export class MetadataAnalyzer implements Analyzer {
                 category: this.category,
                 recommendation: "Include your primary keyword in the title tag for better SEO",
                 priority: "important",
-                externalResourceLink: "https://ahrefs.com/blog/title-tag/",
-                externalResourceTitle: "How to Write the Perfect Title Tag (and Why It Matters)"
+                externalResourceLink: "https://moz.com/learn/seo/title-tag",
+                externalResourceTitle: "Moz: Title Tag - SEO Best Practices"
             });
         }
     }

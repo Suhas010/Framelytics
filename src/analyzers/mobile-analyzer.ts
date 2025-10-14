@@ -292,8 +292,8 @@ export class MobileAnalyzer implements Analyzer {
                 category: this.category,
                 recommendation: "Ensure interactive elements respond to touch events, not just mouse events",
                 priority: "nice-to-have",
-                externalResourceLink: "https://web.dev/touch-events/",
-                externalResourceTitle: "Web.dev: Touch events"
+                externalResourceLink: "https://developer.mozilla.org/en-US/docs/Web/API/Touch_events",
+                externalResourceTitle: "MDN: Touch Events"
             });
         }
     }

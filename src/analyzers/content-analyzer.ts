@@ -50,8 +50,8 @@ export class ContentAnalyzer implements Analyzer {
                 category: this.category,
                 recommendation: "Consider breaking very long content into multiple pages or adding table of contents for better user experience",
                 priority: "nice-to-have",
-                externalResourceLink: "https://www.searchenginejournal.com/content-marketing/long-form-content/",
-                externalResourceTitle: "How to Create Long-Form Content That Ranks, Reads Well & Converts"
+                externalResourceLink: "https://ahrefs.com/blog/long-form-content/",
+                externalResourceTitle: "Ahrefs: Long-Form Content - A Data-Driven Guide"
             });
         }
     }
@@ -172,8 +172,8 @@ export class ContentAnalyzer implements Analyzer {
                 category: this.category,
                 recommendation: "Simplify complex sentences for better readability. Aim for an average sentence length of 15-20 words",
                 priority: "nice-to-have",
-                externalResourceLink: "https://yoast.com/readability-checks-in-yoast-seo/",
-                externalResourceTitle: "Yoast: Readability checks"
+                externalResourceLink: "https://yoast.com/readability-analysis/",
+                externalResourceTitle: "Yoast: Readability Analysis"
             });
         }
     }
@@ -189,8 +189,8 @@ export class ContentAnalyzer implements Analyzer {
                 category: this.category,
                 recommendation: "Add meaningful text content to your page for SEO and user experience",
                 priority: "critical",
-                externalResourceLink: "https://developers.google.com/search/docs/essentials/content-quality-guidelines",
-                externalResourceTitle: "Google: Content quality guidelines"
+                externalResourceLink: "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+                externalResourceTitle: "Google: Creating Helpful, Reliable, People-First Content"
             });
             return;
         }
@@ -208,8 +208,8 @@ export class ContentAnalyzer implements Analyzer {
                 category: this.category,
                 recommendation: "Reduce repetitive content and add more unique content to avoid thin content issues",
                 priority: "important",
-                externalResourceLink: "https://developers.google.com/search/docs/essentials/content-quality-guidelines",
-                externalResourceTitle: "Google: Content quality guidelines"
+                externalResourceLink: "https://developers.google.com/search/docs/fundamentals/creating-helpful-content",
+                externalResourceTitle: "Google: Creating Helpful, Reliable, People-First Content"
             });
         }
         

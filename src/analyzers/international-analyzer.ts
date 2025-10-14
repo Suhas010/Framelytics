@@ -147,8 +147,8 @@ export class InternationalAnalyzer implements Analyzer {
                 category: this.category,
                 recommendation: "Consider adding geo-targeting meta tags for content specific to geographic regions",
                 priority: "nice-to-have",
-                externalResourceLink: "https://moz.com/learn/seo/geo-targeting",
-                externalResourceTitle: "Moz: Geo-Targeting SEO Best Practices"
+                externalResourceLink: "https://developers.google.com/search/docs/specialty/international/managing-multi-regional-sites",
+                externalResourceTitle: "Google: Managing Multi-Regional and Multilingual Sites"
             });
         }
     }
@@ -241,8 +241,8 @@ export class InternationalAnalyzer implements Analyzer {
                     category: this.category,
                     recommendation: "Use a consistent URL structure for international versions (either subdirectories, subdomains, or ccTLDs)",
                     priority: "important",
-                    externalResourceLink: "https://developers.google.com/search/docs/advanced/crawling/managing-multi-regional-sites#url-structures",
-                    externalResourceTitle: "Google: URL structures for multi-regional sites"
+                    externalResourceLink: "https://ahrefs.com/blog/international-seo/",
+                    externalResourceTitle: "Ahrefs: International SEO - A Complete Guide"
                 });
             }
         }
