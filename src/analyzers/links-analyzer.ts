@@ -105,7 +105,7 @@ export class LinksAnalyzer implements Analyzer {
             // Check for malformed URLs
             try {
                 new URL(href);
-            } catch (_) {
+            } catch {
                 // Check if it might be a relative URL
                 if (!href.startsWith("/") && !href.startsWith("#") && !href.startsWith("./") && !href.startsWith("../")) {
                     issues.push({
@@ -188,7 +188,7 @@ export class LinksAnalyzer implements Analyzer {
                 return url.hostname && 
                     !url.hostname.includes("localhost") && 
                     !url.hostname.includes("127.0.0.1");
-            } catch (_) {
+            } catch {
                 return false; // Not a valid absolute URL
             }
         });
@@ -238,7 +238,7 @@ export class LinksAnalyzer implements Analyzer {
                         externalResourceTitle: "Google: Spam policies"
                     });
                 }
-            } catch (_) {
+            } catch {
                 // Skip invalid URLs
             }
         });
@@ -264,7 +264,7 @@ export class LinksAnalyzer implements Analyzer {
                     !url.hostname.includes("127.0.0.1"))) {
                     internalLinkCount++;
                 }
-            } catch (_) {
+            } catch {
                 // Assume relative URLs are internal
                 if (linkNode.href.startsWith("/") || 
                     linkNode.href.startsWith("#") || 
@@ -297,7 +297,7 @@ export class LinksAnalyzer implements Analyzer {
                 return !url.hostname || 
                     url.hostname.includes("localhost") || 
                     url.hostname.includes("127.0.0.1");
-            } catch (_) {
+            } catch {
                 // Assume relative URLs are internal
                 return node.href.startsWith("/") || 
                     node.href.startsWith("#") || 
