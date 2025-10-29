@@ -1,6 +1,6 @@
 {
-  "id": "f22bc2",
-  "name": "Analyze for SEO, accessibility, and links issues",
+  "id": "a7k9m2",
+  "name": "Framelytics",
   "description": "Analyze your Framer project for SEO, accessibility, and links issues and get a detailed report to improve your site's performance.",
   "author": "Suhas R Mohan",
   "authorEmail": "dsuhas@gmail.com",
@@ -11,7 +11,7 @@
     "configureManagedCollection",
     "syncManagedCollection"
   ],
-  "icon": "/src/assets/green-flag-icon.svg",
+  "icon": "/icon.svg",
   "useHttps": false,
   "port": 3000
 }
