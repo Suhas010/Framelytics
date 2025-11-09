@@ -67,6 +67,8 @@ export interface FramerNode {
         name?: string;
         content?: string;
         property?: string;
+        htmlTag?: string;
+        [key: string]: string | undefined;
     };
     children?: FramerNode[];
 }

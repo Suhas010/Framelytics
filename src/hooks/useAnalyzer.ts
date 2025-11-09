@@ -1,7 +1,6 @@
 import { SEOAnalyzerService } from '../utils/seo-analyzer.service.fixed';
 import { useAnalysisContext, AnalysisMode } from '../context/AnalysisContext';
 import { SEOCategory, SEOAnalysisResult } from '../types/seo-types';
-import { useSelection } from './useSelection';
 
 /**
  * Utility function to create a delay
@@ -12,7 +11,6 @@ const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
  * Custom hook for analyzing frames with the SEO analyzer
  */
 export function useAnalyzer() {
-    const selection = useSelection();
     const seoAnalyzer = new SEOAnalyzerService();
     const {
         setIsAnalyzing,
@@ -29,8 +27,7 @@ export function useAnalyzer() {
         setIsAnalyzing(true);
 
         try {
-            // Convert Framer selection to node format
-            const nodes = seoAnalyzer.createNodesFromFramerSelection(selection);
+            const nodes = await seoAnalyzer.createNodesFromFramerSelection();
             
             // Set up filter based on current mode
             const filter = getFilterForMode(analysisMode);
