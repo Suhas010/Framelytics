@@ -1,6 +1,5 @@
 import { useAnalysisContext } from '../context/AnalysisContext';
 import { generateComprehensiveReport, downloadReport } from '../utils/report-generator';
-import { useSelection } from './useSelection';
 import { usePublishInfo } from './usePublishInfo';
 import { SEOAnalyzerService } from '../utils/seo-analyzer.service.fixed';
 import { SEOCategory } from '../types/seo-types';
@@ -20,7 +19,6 @@ export function useReportGenerator() {
         setLinksResults
     } = useAnalysisContext();
     
-    const selection = useSelection();
     const publishInfo = usePublishInfo();
     
     /**
@@ -52,7 +50,7 @@ export function useReportGenerator() {
      */
     const ensureAllCategoriesAnalyzed = async () => {
         const seoAnalyzer = new SEOAnalyzerService();
-        const nodes = seoAnalyzer.createNodesFromFramerSelection(selection);
+        const nodes = await seoAnalyzer.createNodesFromFramerSelection();
         
         // Run SEO analysis if needed
         if (!seoResults) {
@@ -106,22 +104,15 @@ export function useReportGenerator() {
     const generateAndDownloadReport = () => {
         // Get project URLs from Framer
         const urlInfo = getProjectUrls();
-        
-        // Get identifiers for analyzed frames
         const analyzedPages: string[] = [];
         
-        // Add frame identifiers to the report
-        if (selection && selection.length > 0) {
-            // Use the IDs of selected nodes
-            selection.forEach((node, index) => {
-                // Safely access node properties
-                const nodeLabel = typeof node.id === 'string' ? node.id : 'unknown';
-                
-                // Use a generic name since we can't reliably access the name property
-                const nodeName = "Frame";
-                
-                analyzedPages.push(`${nodeName} ${index + 1} (ID: ${nodeLabel})`);
-            });
+        // Use publish info to identify the page
+        if (publishInfo?.staging?.currentPageUrl || publishInfo?.published?.currentPageUrl) {
+            const pageUrl = publishInfo?.published?.currentPageUrl || publishInfo?.staging?.currentPageUrl || "";
+            analyzedPages.push(`Current Page: ${pageUrl}`);
+        } else {
+            // Fallback: mention it's the current canvas page
+            analyzedPages.push("Current Canvas Page (not yet published)");
         }
         
         // Create a comprehensive report with all available analysis types
